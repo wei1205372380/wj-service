@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linbowen.wj.mapper.BookCommentMapper">
+
+    <insert id="insertComment" parameterType="com.linbowen.wj.pojo.BookComment">
+        insert into book_comment values
+            (null, #{userId}, #{bookId}, #{comment}, now(), null)
+    </insert>
+
+</mapper>

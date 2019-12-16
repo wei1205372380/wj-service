@@ -13,27 +13,27 @@ public class BaseResponse<T> {
     /**
      * 响应提示
      */
-    private String msg;
+    private String message;
 
     /**
      * 业务数据
      */
-    private T resultInfo;
+    private T data;
 
-    public BaseResponse(Boolean success, String msg, T resultInfo) {
+    public BaseResponse(Boolean success, String message, T data) {
         this.success = success;
-        this.msg = msg;
-        this.resultInfo = resultInfo;
-    }
+        this.message = message;
+        this.data = data;
+    }      
 
     public BaseResponse() {}
 
-    public static <E> BaseResponse<E> buildSuccess(String msg) {
-        return new BaseResponse<>(true, msg, null);
+    public static <E> BaseResponse<E> buildSuccess(String message) {
+        return new BaseResponse<>(true, message, null);
     }
 
-    public static <E> BaseResponse<E> buildFail(String msg) {
-        return new BaseResponse<>(false, msg, null);
+    public static <E> BaseResponse<E> buildFail(String message) {
+        return new BaseResponse<>(false, message, null);
     }
 
     public static <E> BaseResponse<E> buildSuccess() {
@@ -44,12 +44,16 @@ public class BaseResponse<T> {
         return new BaseResponse<>(false, null, null);
     }
 
-    public static <E> BaseResponse<E> buildSuccess(String msg, E resultInfo) {
-        return new BaseResponse<>(true, msg, resultInfo);
+    public static <E> BaseResponse<E> buildSuccess(String message, E data) {
+        return new BaseResponse<>(true, message, data);
     }
 
-    public static <E> BaseResponse<E> buildFail(String msg, E resultInfo) {
-        return new BaseResponse<>(false, msg, resultInfo);
+    public static <E> BaseResponse<E> buildFail(String message, E data) {
+        return new BaseResponse<>(false, message, data);
+    }
+
+    public static <E> BaseResponse<E> buildSuccess(E data) {
+        return new BaseResponse<>(true, null, data);
     }
 
     public Boolean getSuccess() {
@@ -60,19 +64,19 @@ public class BaseResponse<T> {
         this.success = success;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public T getResultInfo() {
-        return resultInfo;
+    public T getData() {
+        return data;
     }
 
-    public void setResultInfo(T resultInfo) {
-        this.resultInfo = resultInfo;
+    public void setData(T data) {
+        this.data = data;
     }
 }

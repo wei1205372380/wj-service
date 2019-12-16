@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linbowen.wj.mapper.BookMapper">
+
+    <resultMap id="bookDetails" type="com.linbowen.wj.dto.BookDetails">
+        <association property="book" javaType="com.linbowen.wj.pojo.Book">
+            <id property="id" column="bid"/>
+            <result property="cnName" column="bcn_name"/>
+            <result property="formerName" column="bformer_name"/>
+            <result property="authorId" column="author_id"/>
+            <result property="coverName" column="cover_name"/>
+            <result property="content" column="content"/>
+            <result property="publisher" column="publisher"/>
+            <result property="publishDate" column="publish_date"/>
+            <result property="createTime" column="bcreate_time"/>
+            <result property="updateTime" column="bupdate_time"/>
+        </association>
+        <association property="author" javaType="com.linbowen.wj.pojo.Author">
+            <id property="id" column="aid"/>
+            <result property="cnName" column="acn_name"/>
+            <result property="formerName" column="aformer_name"/>
+            <result property="citizenship" column="citizenship"/>
+            <result property="createTime" column="acreate_time"/>
+            <result property="updateTime" column="aupdate_time"/>
+        </association>
+    </resultMap>
+
+    <select id="selectBookDetails" resultMap="bookDetails">
+        select
+         b.id bid,
+         b.cn_name bcn_name,
+         b.former_name bformer_name,
+         b.author_id,
+         b.cover_name,
+         b.content,
+         b.publisher,
+         b.publish_date,
+         b.create_time bcreate_time,
+         b.update_time bupdate_time,
+         a.id aid,
+         a.cn_name acn_name,
+         a.former_name aformer_name,
+         a.citizenship,
+         a.create_time acreate_time,
+         a.update_time aupdate_time
+         from book b left join author a on (b.author_id = a.id)
+         where b.tag_id in (
+            <foreach collection="list" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+        )
+         order by b.id
+    </select>
+
+    <select id="selectAll" resultType="com.linbowen.wj.pojo.Book">
+        select * from book
+    </select>
+
+</mapper>

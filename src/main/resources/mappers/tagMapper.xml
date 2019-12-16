@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linbowen.wj.mapper.TagMapper">
+
+    <!--     第一次存入大量标签-->
+    <insert id="insertList" parameterType="java.util.List">
+        insert into tag values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.name},
+            #{item.parentId},
+            #{item.isValid}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectSubTags" resultType="com.linbowen.wj.pojo.Tag">
+        select * from tag where parent_id = #{id} and is_valid = true
+    </select>
+
+</mapper>
